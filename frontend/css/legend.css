@@ -1,0 +1,65 @@
+/* Horizontal Map Legend - Header Style */
+.map-legend {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    padding: 8px 16px;
+    border: 1px solid #333;
+    /* Dark Grey Border */
+    border-radius: 4px;
+    /* Rounded Corners */
+    margin: 0 20px;
+    pointer-events: auto;
+    backdrop-filter: blur(4px);
+    /* Glass effect */
+}
+
+.map-legend h4 {
+    display: none;
+    /* Hide title for simple horizontal view */
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Icon Circle */
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #000;
+    font-size: 0.6rem;
+}
+
+/* Colors - Scoped */
+.icon-circle.phishing {
+    background-color: #ff3b5c;
+    box-shadow: 0 0 8px rgba(255, 59, 92, 0.4);
+}
+
+.icon-circle.suspicious {
+    background-color: #ff9500;
+    box-shadow: 0 0 8px rgba(255, 149, 0, 0.4);
+}
+
+.icon-circle.malware {
+    background-color: #00b4ff;
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.4);
+}
+
+.icon-circle.benign {
+    background-color: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+}

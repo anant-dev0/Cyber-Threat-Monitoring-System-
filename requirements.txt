@@ -1,0 +1,9 @@
+flask
+flask-socketio
+pandas
+numpy
+scikit-learn
+joblib
+geoip2
+requests
+eventlet

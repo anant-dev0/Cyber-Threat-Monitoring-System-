@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Threat Monitoring System | Realtime Dashboard</title>
+    <meta name="description"
+        content="Real-time Network Intrusion Detection System with ML-powered threat analysis and IP geolocation mapping.">
+
+    <!-- MapLibre GL CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/legend.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- NAVIGATION BAR                              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <!-- <i class="fas fa-shield-halved brand-icon"></i> (Hidden for pure text look) -->
+            <span class="brand-text">CYBER THREAT MONITORING SYSTEM</span>
+        </div>
+        <ul class="nav-links">
+
+            <li><a href="#metrics"><i class="fas fa-layer-group"></i> Features</a></li>
+            <li><a href="#dashboard"><i class="fas fa-brain"></i> Prediction</a></li>
+            <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analysis</a></li>
+            <li><a href="#"><i class="fas fa-wrench"></i> Tools</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
+        </ul>
+
+    </nav>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- MAIN CONTENT                                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- Dashboard Header -->
+        <section class="dashboard-header" id="dashboard">
+            <div class="header-text">
+                <h1>Realtime Dashboard</h1>
+                <p class="subtitle">Live inference &amp; IP geolocation</p>
+            </div>
+
+            <!-- Horizontal Legend -->
+            <div class="map-legend horizontal">
+                <!-- <h4>ATTACK TYPES</h4> (Removed for simple style) -->
+                <div class="legend-item">
+                    <span class="icon-circle phishing"><i class="fas fa-check"></i></span>
+                    <span>Phishing</span>
+                </div>
+                <div class="legend-item">
+                    <span class="icon-circle suspicious"><i class="fas fa-check"></i></span>
+                    <span>Suspicious</span>
+                </div>
+                <div class="legend-item">
+                    <span class="icon-circle malware"><i class="fas fa-check"></i></span>
+                    <span>Malware</span>
+                </div>
+                <div class="legend-item">
+                    <span class="icon-circle benign"><i class="fas fa-check"></i></span>
+                    <span>Benign</span>
+                </div>
+            </div>
+
+            <!-- Legend Removed -->
+
+            <div class="header-status">
+                <span class="status-indicator online"></span>
+                <span>System Online</span>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- MAP + CONTROLS GRID                     -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="map-controls-grid">
+            <!-- Map Card -->
+            <div class="glass-card map-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-globe"></i> IP Geolocation Map</h3>
+                    <div class="live-badge"><span class="pulse-dot"></span> LIVE</div>
+                </div>
+                <div id="map-container" style="position: relative;">
+                </div>
+            </div>
+            </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="glass-card controls-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-sliders"></i> System Controls</h3>
+                    <span class="card-badge">Tune &amp; Replay</span>
+                </div>
+                <div class="controls-body">
+                    <div class="control-group">
+                        <label>Replay Speed: <span id="speed-val" class="slider-val">1</span></label>
+                        <input type="range" id="speed-slider" min="1" max="10" value="1" class="neon-slider">
+                    </div>
+                    <button class="btn-primary" id="btn-replay"><i class="fas fa-play"></i> Start Replay</button>
+                    <div class="control-group">
+                        <label>Alpha (Supervised): <span id="alpha-val" class="slider-val">0.5</span></label>
+                        <input type="range" id="alpha-slider" min="0" max="100" value="50" class="neon-slider">
+                    </div>
+                    <div class="control-group">
+                        <label>Beta (Unsupervised): <span id="beta-val" class="slider-val">0.4</span></label>
+                        <input type="range" id="beta-slider" min="0" max="100" value="40" class="neon-slider">
+                    </div>
+                    <div class="control-group">
+                        <label>Attack Threshold: <span id="thresh-val" class="slider-val">0.42</span></label>
+                        <input type="range" id="thresh-slider" min="0" max="100" value="42" class="neon-slider">
+                    </div>
+                    <button class="btn-secondary" id="btn-apply"><i class="fas fa-check"></i> Apply Parameters</button>
+
+                    <!-- Live Stats -->
+                    <div class="live-stats">
+                        <div class="stat-row"><span>Total Packets</span><span id="total-attacks"
+                                class="stat-val">0</span></div>
+                        <div class="stat-row"><span>Attacks/Min</span><span id="attacks-per-min"
+                                class="stat-val">0</span></div>
+                        <div class="stat-row"><span>Last Target</span><span id="last-target" class="stat-val">N/A</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- INTRUSION LOGS                          -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="glass-card logs-section">
+            <div class="card-header">
+                <h3><i class="fas fa-terminal"></i> Intrusion Logs</h3>
+                <span class="card-badge" id="log-count">0 events</span>
+            </div>
+            <div id="log-list" class="log-list">
+                <div class="log-placeholder">Waiting for events...</div>
+            </div>
+        </section>
+
+
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- TOP ATTACKING IPs                       -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="glass-card top-ips-section">
+            <div class="card-header">
+                <h3><i class="fas fa-skull-crossbones"></i> Top Attacking IPs</h3>
+            </div>
+            <table class="ip-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>IP Address</th>
+                        <th>Country</th>
+                        <th>Hits</th>
+                        <th>Threat Level</th>
+                    </tr>
+                </thead>
+                <tbody id="top-ips-body">
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- METRICS SUMMARY CARDS                   -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="metrics-grid" id="metrics">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-bullseye"></i></div>
+                <div class="metric-value" id="metric-accuracy">97.8%</div>
+                <div class="metric-label">Overall Accuracy</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-crosshairs"></i></div>
+                <div class="metric-value" id="metric-precision">96.5%</div>
+                <div class="metric-label">Precision</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
+                <div class="metric-value" id="metric-recall">98.2%</div>
+                <div class="metric-label">Recall</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-scale-balanced"></i></div>
+                <div class="metric-value" id="metric-f1">97.3%</div>
+                <div class="metric-label">F1-Score</div>
+            </div>
+        </section>
+
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ANALYTICS SECTION                       -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="section-header" id="analytics">
+            <h2><i class="fas fa-chart-pie"></i> Model Analytics</h2>
+            <p class="section-subtitle">Confusion matrix and curves summarize model performance. Parameter tuning helps
+                balance precision and recall.</p>
+        </section>
+
+        <section class="analytics-grid">
+            <!-- Confusion Matrix -->
+            <div class="glass-card chart-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-th"></i> Confusion Matrix</h3>
+                </div>
+                <canvas id="chart-confusion"></canvas>
+            </div>
+            <!-- ROC Curve -->
+            <div class="glass-card chart-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-area"></i> ROC Curve</h3>
+                </div>
+                <canvas id="chart-roc"></canvas>
+            </div>
+            <!-- Precision-Recall Curve -->
+            <div class="glass-card chart-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-wave-square"></i> Precision-Recall Curve</h3>
+                </div>
+                <canvas id="chart-pr"></canvas>
+            </div>
+            <!-- Feature Importance -->
+            <div class="glass-card chart-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-ranking-star"></i> Feature Importance</h3>
+                </div>
+                <canvas id="chart-features"></canvas>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Cyber Threat Monitoring System &mdash; </p>
+        </footer>
+    </main>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCRIPTS                                     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/deck.gl@8.9.35/dist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
