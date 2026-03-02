@@ -1,59 +1,97 @@
-# Cyber Threat Monitoring and Intrusion Detection System
+# 🛡️ Cyber Threat Monitoring & Intrusion Detection System
 
-A complete final-year project that detects and visualizes network intrusions in real-time.
+## 🌟 Overview
+A sophisticated, real-time **Cyber Threat Monitoring and Intrusion Detection System (IDS)** designed for modern network security. This project leverages **Machine Learning** to classify network traffic and uses a **Dynamic Web Dashboard** to visualize global threat patterns as they happen.
 
-## features
-- **Machine Learning**: RandomForest Classifier trained on (synthetic) CIC-IDS2017 data.
-- **Real-Time Dashboard**: Live world map visualization of cyber attacks.
-- **Traffic Simulation**: Generates realistic network flows for demonstration.
-- **Attack Detection**: Identifies DDoS, Port Scans, Botnets, and Brute Force attacks.
+---
 
-## Project Structure
+## 🚀 Key Features
+
+- **🧠 Intelligent Detection**: Powered by a **Random Forest Classifier** trained on high-fidelity network traffic data (CIC-IDS2017).
+- **📊 Real-Time Visualization**: Interactive 3D world map showing attack origins and targets with smooth glow-arc animations.
+- **⚡ High Performance**: Built with a reactive frontend and a robust Python backend for low-latency alerts.
+- **🛡️ Threat Coverage**: Successfully identifies a variety of network attacks:
+  - **DDoS** (Distributed Denial of Service)
+  - **Port Scans**
+  - **Botnets**
+  - **Brute Force**
+- **💻 Simulation Suite**: Includes scripts to generate synthetic traffic and simulate realistic attack scenarios for testing.
+
+---
+
+## 🛠️ Technology Stack
+
+| Component | Technologies |
+| :--- | :--- |
+| **Backend** | Python, Flask, Flask-SocketIO |
+| **Machine Learning** | Scikit-learn, Pandas, NumPy |
+| **Frontend** | React, Deck.gl, Mapbox (Custom Layers) |
+| **Data Handling** | Git LFS (for large datasets) |
+
+---
+
+## 📂 Project Structure
+
+```bash
+cyber/
+├── 📁 backend          # API server and core logic
+├── 📁 data             # Network traffic datasets (LFS)
+├── 📁 frontend         # Legacy dashboard implementation
+├── 📁 frontend-react   # Modern React-based vizualization
+├── 📁 models           # Serialized ML models (.pkl)
+├── 📁 scripts          # Simulation and training utilities
+├── 📄 requirements.txt # Python dependencies
+└── 📄 project_banner.png
 ```
-/cyber
-├── /backend            # Flask Server & Logic
-│   └── app.py
-├── /data               # Dataset (Synthetic or Real)
-├── /frontend           # Dashboard (HTML/CSS/JS)
-├── /models             # Trained ML Models
-├── /scripts            # Utility Scripts
-│   ├── generate_data.py
-│   ├── train_model.py
-│   └── simulate_attacks.py
-└── requirements.txt
+
+---
+
+## 🔌 Quick Start
+
+### 1. Environment Setup
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/anant-dev0/Cyber-Threat-Monitoring-System-.git
+cd Cyber-Threat-Monitoring-System-
+pip install -r requirements.txt
 ```
 
-## Setup Instructions
+### 2. Model Initialization (Optional)
+If you wish to retrain the brain of the IDS:
+```bash
+# Generate synthetic dataset
+python scripts/generate_data.py
 
-1. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Train the Random Forest model
+python scripts/train_model.py
+```
 
-2. **Generate Data & Train Model**
-   (First time only)
-   ```bash
-   # Generate synthetic dataset
-   python scripts/generate_data.py
-   
-   # Train the Intrusion Detection System
-   python scripts/train_model.py
-   ```
+### 3. Launch System
+Start the monitoring server:
+```bash
+python backend/app.py
+```
+*The dashboard will be available at `http://localhost:5000`*
 
-3. **Run the Dashboard**
-   ```bash
-   python backend/app.py
-   ```
-   *Server will start at http://localhost:5000*
+### 4. Run Attack Simulation
+To see the system in action, run the simulation in a new terminal:
+```bash
+python scripts/simulate_attacks.py
+```
 
-4. **Start Attack Simulation**
-   (Open a new terminal)
-   ```bash
-   python scripts/simulate_attacks.py
-   ```
+---
 
-## How It Works
-1. **Data**: The system uses flow-based features (Duration, Packet Count, etc.) to characterize traffic.
-2. **Model**: A Random Forest model classifies traffic as BENIGN or ATTACK.
-3. **Detection**: `app.py` receives flow data, predicts its nature, and broadcasts alerts via WebSockets.
-4. **Visualization**: The frontend listens for alerts and updates the live map and statistics.
+## 📖 How It Works
+
+1.  **Traffic Analysis**: The system extracts flow-based features (e.g., duration, packet counts, bytes per second) from raw network data.
+2.  **Classification**: Each flow is processed by the Random Forest model to determine if it is `BENIGN` or an `ATTACK`.
+3.  **Alerting**: Detections are instantly broadcasted via WebSockets to the connected frontend.
+4.  **Visualization**: The dashboard renders these threats as dynamic arcs on a global map, providing immediate situational awareness.
+
+---
+
+## 👥 Contributors
+- **Author**: Anant
+
+---
+✨ *Built as a comprehensive solution for network security and real-time data visualization.*
