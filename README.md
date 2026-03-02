@@ -90,8 +90,5 @@ python scripts/simulate_attacks.py
 
 ---
 
-## 👥 Contributors
-- **Author**: Anant
-
 ---
 ✨ *Built as a comprehensive solution for network security and real-time data visualization.*
